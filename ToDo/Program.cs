@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using ToDo.ApplicationDBContext;
+
 namespace ToDo
 {
     public class Program
@@ -8,6 +11,9 @@ namespace ToDo
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<AppDbCon>(opt => opt.UseSqlServer(
+                builder.Configuration.GetConnectionString("DbConn")
+                ));
 
             var app = builder.Build();
 
@@ -28,7 +34,7 @@ namespace ToDo
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=ToDo}/{action=Index}/{id?}");
 
             app.Run();
         }
