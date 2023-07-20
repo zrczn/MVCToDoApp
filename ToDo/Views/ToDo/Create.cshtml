@@ -1,0 +1,99 @@
+﻿@model ToDoModel;
+
+<form method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Topic:</label>
+                    <input class="form-control" asp-for="Topic">
+                    <span asp-validation-for="Topic"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Contents:</label>
+                    <textarea class="form-control" asp-for="Contents" rows="4"></textarea>
+                    <span asp-validation-for="Contents"></span>
+                </div>
+                <select class="form-select mb-3" asp-for="Priority">
+                    <option selected>Set priority of the task</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <span asp-validation-for="Priority"></span>
+            </div>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Additional Settings
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Upload photo</label>
+                                    <input class="form-control" type="file" id="formFile">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Upload audio file</label>
+                                    <input class="form-control" type="file" id="formFile">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                           id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Set as routine
+                                    </label>
+                                </div>
+                                <select class="form-select mb-3 mt-3" asp-for="RoutineOption">
+                                    <option value="0">None</option>
+                                    <option value="1">Every day</option>
+                                    <option value="2">Even week days</option>
+                                    <option value="3">Odd week days</option>
+                                    <option value="4">Weekend days</option>
+                                    <option value="5">Every monday</option>
+                                    <option value="6">Every tuesday</option>
+                                    <option value="7">Every wednesday</option>
+                                    <option value="8">Every thursday</option>
+                                    <option value="9">Every friday</option>
+                                    <option value="10">Every saturday</option>
+                                    <option value="11">Every sunday</option>
+                                </select>
+                                <span asp-validation-for="RoutineOption"></span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                           id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Show Once
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3 mt-2">
+                                    <label for="exampleFormControlInput1" class="form-label">At day: </label>
+                                    <input class="form-control" asp-for="ShowAtSingleDay"
+                                           placeholder="today, else enter data (dd-mm-rrrr)">
+                                    <span asp-validation-for="ShowAtSingleDay"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3 mt-3">
+            <div class="col">
+                <button type="submit" class="btn btn-primary btn-lg">Add</button>
+                <button class="btn btn-secondary btn-lg" asp-controller="ToDo" asp-action="Index">Back to menu</button>
+            </div>
+        </div>
+    </div>
+</form>
