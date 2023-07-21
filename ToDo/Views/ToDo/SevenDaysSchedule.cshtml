@@ -3,13 +3,16 @@
 <main>
     @foreach (var Day in Model)
     {
-        <div class="container-fluid">
-            <div class="row align-items-end border-bottom">
-                <div class="col">
-                    <p class="fs-2 fw-light">@Day.Item1</p>
+        @if(!(Day.Item2.Count() == 0))
+        {
+            <div class="container-fluid">
+                <div class="row align-items-end border-bottom">
+                    <div class="col">
+                        <p class="fs-2 fw-light">@Day.Item1</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
         @foreach (var Activity in Day.Item2)
         {
             <div class="container">

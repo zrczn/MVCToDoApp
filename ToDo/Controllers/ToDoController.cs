@@ -132,5 +132,13 @@ namespace ToDo.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult ManageAll()
+        {
+            IEnumerable<ToDoModel> getAllToDos = _db.toDoModels.Select(x => x);
+
+            return View(getAllToDos);
+        }
     }
 }
