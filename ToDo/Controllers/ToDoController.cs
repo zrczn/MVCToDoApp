@@ -30,6 +30,8 @@ namespace ToDo.Controllers
             return View(getSevenDaysToDos);
         }
 
+
+        //Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -39,15 +41,55 @@ namespace ToDo.Controllers
         [HttpPost]
         public IActionResult Create(ToDoModel model)
         {
-            if (ModelState.IsValid && 
-                (model.RoutineOption == 0 ^ model.ShowAtSingleDay == new DateTime(1, 1, 1, 0, 0, 0)))
+            if(!(model.RoutineOption == 0 ^ model.ShowAtSingleDay == new DateTime(1, 1, 1, 0, 0, 0)))
             {
-                _db.toDoModels.Add(model);
-                _db.SaveChanges();
-            }
-            else
-                return View();
+                ViewData["ShowAtError"] = "Please insert either Set as routine or Show once";
 
+                return View(model);
+            }
+            if(model.ShowAtSingleDay < DateTime.Now)
+            {
+                ViewData["ShowAtError"] = "Please enter future date";
+            }
+            if (!(ModelState.IsValid))
+            {
+                return View(model);
+            }
+
+            _db.toDoModels.Add(model);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //Edit
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            var getRecord = _db.toDoModels.FirstOrDefault(x => x.Id == Id);
+
+            return View(getRecord);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ToDoModel model)
+        {
+            if (!(model.RoutineOption == 0 ^ model.ShowAtSingleDay == new DateTime(1, 1, 1, 0, 0, 0)))
+            {
+                ViewData["ShowAtError"] = "Please insert either Set as routine or Show once";
+
+                return View(model);
+            }
+            if (model.ShowAtSingleDay < DateTime.Now)
+            {
+                ViewData["ShowAtError"] = "Please enter future date";
+            }
+            if (!(ModelState.IsValid))
+            {
+                return View(model);
+            }
+
+            _db.toDoModels.Update(model);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

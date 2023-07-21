@@ -46,7 +46,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">@Activity.Topic</h5>
                                 <p class="card-text">@Activity.Contents</p>
-                                <a href="#" class="btn btn-primary">Show details</a>
+                                <a class="btn btn-primary" asp-controller="ToDo" asp-action="Edit" asp-route-Id="@Activity.Id">Show details</a>
                                 <a href="#" class="btn btn-warning">Mark as completed</a>
                                 <a href="#" class="btn btn-danger">Remove</a>
                             </div>
