@@ -55,7 +55,7 @@
                             }
                             <a class="btn btn-primary" asp-controller="ToDo" asp-action="Edit" asp-route-Id="@item.Id">Show details</a>
                             <a class="btn btn-warning" asp-controller="ToDo" asp-action="Completed" asp-route-Id="@item.Id">Done/Undone</a>
-                            <a href="#" class="btn btn-danger">Remove</a>
+                            <a class="btn btn-danger" asp-controller="ToDo" asp-action="Remove" asp-route-Id="@item.Id">Remove</a>
                         </div>
                     </div>
                 </div>

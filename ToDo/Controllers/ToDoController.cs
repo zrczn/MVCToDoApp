@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using ToDo.ApplicationDBContext;
 using ToDo.Models;
-
+using ToDo.SupportiveMaterials;
 using ToDoScheduler = ToDo.SupportiveMaterials.TaskScheduler;
 
 namespace ToDo.Controllers
@@ -18,6 +18,8 @@ namespace ToDo.Controllers
 
         public IActionResult Index()
         {
+            ExpiredDateHandler.CleanExpiredDateToDos(_db);
+
             IEnumerable<ToDoModel> getTodayToDos = ToDoScheduler.ZenData(_db);
 
             return View(getTodayToDos);
@@ -47,9 +49,11 @@ namespace ToDo.Controllers
 
                 return View(model);
             }
-            if(model.ShowAtSingleDay < DateTime.Now)
+            if(model.ShowAtSingleDay < DateTime.Today && model.RoutineOption == 0)
             {
                 ViewData["ShowAtError"] = "Please enter future date";
+
+                return View(model);
             }
             if (!(ModelState.IsValid))
             {
@@ -112,7 +116,21 @@ namespace ToDo.Controllers
                 _db.SaveChanges();
             }
 
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Remove(int Id)
+        {
+            var getRecord = _db.toDoModels.FirstOrDefault(x => x.Id == Id);
+
+            if(getRecord != null)
+            {
+                _db.toDoModels.Remove(getRecord);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
