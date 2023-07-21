@@ -21,6 +21,7 @@ namespace ToDo.Models
         public int RoutineOption { get; set; }
 
         public DateTime ShowAtSingleDay { get; set; }
+        public bool IsItDone { get; set; }
 
     }
 }

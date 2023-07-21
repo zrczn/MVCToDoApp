@@ -43,10 +43,18 @@
                             }
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">@item.Topic</h5>
-                            <p class="card-text">@item.Contents</p>
+                            @if (!(item.IsItDone))
+                            {
+                                <h5 class="card-title">@item.Topic</h5>
+                                <p class="card-text">@item.Contents</p>
+                            }
+                            else
+                            {
+                                <h5 class="card-title"><del>@item.Topic</del></h5>
+                                <p class="card-text"><del>@item.Contents</del></p>
+                            }
                             <a class="btn btn-primary" asp-controller="ToDo" asp-action="Edit" asp-route-Id="@item.Id">Show details</a>
-                            <a href="#" class="btn btn-warning">Mark as completed</a>
+                            <a class="btn btn-warning" asp-controller="ToDo" asp-action="Completed" asp-route-Id="@item.Id">Done/Undone</a>
                             <a href="#" class="btn btn-danger">Remove</a>
                         </div>
                     </div>

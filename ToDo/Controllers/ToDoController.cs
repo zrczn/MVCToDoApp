@@ -92,5 +92,27 @@ namespace ToDo.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Completed(int Id)
+        {
+            var getRecord = _db.toDoModels.FirstOrDefault(x => x.Id == Id);
+
+            if(getRecord != null)
+            {
+                if (getRecord.IsItDone == true)
+                {
+                    getRecord.IsItDone = false;
+                }
+                else if (getRecord.IsItDone == false)
+                {
+                    getRecord.IsItDone = true;
+                }
+
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("index");
+        }
     }
 }
