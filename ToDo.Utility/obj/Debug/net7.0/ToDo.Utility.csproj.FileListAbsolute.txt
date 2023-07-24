@@ -1,0 +1,17 @@
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\bin\Debug\net7.0\ToDo.Utility.deps.json
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\bin\Debug\net7.0\ToDo.Utility.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\bin\Debug\net7.0\ToDo.Utility.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.csproj.AssemblyReference.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.AssemblyInfoInputs.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.AssemblyInfo.cs
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.csproj.CoreCompileInputs.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\refint\ToDo.Utility.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ref\ToDo.Utility.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\bin\Debug\net7.0\ToDo.DataAccess.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\bin\Debug\net7.0\ToDo.Models.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\bin\Debug\net7.0\ToDo.DataAccess.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\bin\Debug\net7.0\ToDo.Models.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.Utility\obj\Debug\net7.0\ToDo.Utility.csproj.CopyComplete

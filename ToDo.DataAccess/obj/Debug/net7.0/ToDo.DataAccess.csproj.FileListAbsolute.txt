@@ -1,0 +1,17 @@
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.csproj.AssemblyReference.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.AssemblyInfoInputs.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.AssemblyInfo.cs
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.csproj.CoreCompileInputs.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\bin\Debug\net7.0\ToDo.DataAccess.deps.json
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\bin\Debug\net7.0\ToDo.DataAccess.runtimeconfig.json
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\bin\Debug\net7.0\ToDo.DataAccess.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\bin\Debug\net7.0\ToDo.DataAccess.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\bin\Debug\net7.0\ToDo.Models.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\bin\Debug\net7.0\ToDo.Models.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.csproj.CopyComplete
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\refint\ToDo.DataAccess.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ToDo.DataAccess.genruntimeconfig.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.DataAccess\obj\Debug\net7.0\ref\ToDo.DataAccess.dll

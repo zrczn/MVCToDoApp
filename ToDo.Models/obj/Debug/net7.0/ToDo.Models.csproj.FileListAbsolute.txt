@@ -1,0 +1,12 @@
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\bin\Debug\net7.0\ToDo.Models.deps.json
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\bin\Debug\net7.0\ToDo.Models.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\bin\Debug\net7.0\ToDo.Models.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ToDo.Models.csproj.AssemblyReference.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ToDo.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ToDo.Models.AssemblyInfoInputs.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ToDo.Models.AssemblyInfo.cs
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ToDo.Models.csproj.CoreCompileInputs.cache
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ToDo.Models.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\refint\ToDo.Models.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ToDo.Models.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo.Models\obj\Debug\net7.0\ref\ToDo.Models.dll

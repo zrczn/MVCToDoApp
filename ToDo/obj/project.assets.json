@@ -1132,6 +1132,44 @@
             "rid": "win"
           }
         }
+      },
+      "ToDo.DataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9",
+          "ToDo.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ToDo.DataAccess.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ToDo.DataAccess.dll": {}
+        }
+      },
+      "ToDo.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/ToDo.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ToDo.Models.dll": {}
+        }
+      },
+      "ToDo.Utility/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "ToDo.DataAccess": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ToDo.Utility.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ToDo.Utility.dll": {}
+        }
       }
     }
   },
@@ -3452,13 +3490,30 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ToDo.DataAccess/1.0.0": {
+      "type": "project",
+      "path": "../ToDo.DataAccess/ToDo.DataAccess.csproj",
+      "msbuildProject": "../ToDo.DataAccess/ToDo.DataAccess.csproj"
+    },
+    "ToDo.Models/1.0.0": {
+      "type": "project",
+      "path": "../ToDo.Models/ToDo.Models.csproj",
+      "msbuildProject": "../ToDo.Models/ToDo.Models.csproj"
+    },
+    "ToDo.Utility/1.0.0": {
+      "type": "project",
+      "path": "../ToDo.Utility/ToDo.Utility.csproj",
+      "msbuildProject": "../ToDo.Utility/ToDo.Utility.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.EntityFrameworkCore >= 7.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.9",
-      "Microsoft.EntityFrameworkCore.Tools >= 7.0.9"
+      "Microsoft.EntityFrameworkCore.Tools >= 7.0.9",
+      "ToDo.DataAccess >= 1.0.0",
+      "ToDo.Utility >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3494,7 +3549,14 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Repos\\Repos22\\MVC\\ToDo\\ToDo.DataAccess\\ToDo.DataAccess.csproj": {
+              "projectPath": "D:\\Repos\\Repos22\\MVC\\ToDo\\ToDo.DataAccess\\ToDo.DataAccess.csproj"
+            },
+            "D:\\Repos\\Repos22\\MVC\\ToDo\\ToDo.Utility\\ToDo.Utility.csproj": {
+              "projectPath": "D:\\Repos\\Repos22\\MVC\\ToDo\\ToDo.Utility\\ToDo.Utility.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

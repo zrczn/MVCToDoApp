@@ -1,11 +1,11 @@
 ﻿using ToDo.ApplicationDBContext;
 using ToDo.Models;
 
-namespace ToDo.SupportiveMaterials
+namespace ToDo.Utility
 {
-    internal class ExpiredDateHandler
+    public class ExpiredDateHandler
     {
-        internal static void CleanExpiredDateToDos(AppDbCon db)
+        public static void CleanExpiredDateToDos(AppDbCon db)
         {
             IEnumerable<ToDoModel> expiredToDos = db.toDoModels.Select(x => x)
                                                 .Where(x => x.ShowAtSingleDay < DateTime.Today && x.ShowAtSingleDay != new DateTime(1, 1, 1, 0, 0, 0));

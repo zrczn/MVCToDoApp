@@ -2,8 +2,8 @@
 using System.Xml.Linq;
 using ToDo.ApplicationDBContext;
 using ToDo.Models;
-using ToDo.SupportiveMaterials;
-using ToDoScheduler = ToDo.SupportiveMaterials.TaskScheduler;
+using ToDo.Utility;
+using ToDoScheduler = ToDo.Utility.TaskScheduler;
 
 namespace ToDo.Controllers
 {

@@ -73,3 +73,9 @@ D:\Repos\Repos22\MVC\ToDo\ToDo\obj\Debug\net7.0\refint\ToDo.dll
 D:\Repos\Repos22\MVC\ToDo\ToDo\obj\Debug\net7.0\ToDo.pdb
 D:\Repos\Repos22\MVC\ToDo\ToDo\obj\Debug\net7.0\ToDo.genruntimeconfig.cache
 D:\Repos\Repos22\MVC\ToDo\ToDo\obj\Debug\net7.0\ref\ToDo.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo\bin\Debug\net7.0\ToDo.DataAccess.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo\bin\Debug\net7.0\ToDo.Models.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo\bin\Debug\net7.0\ToDo.DataAccess.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo\bin\Debug\net7.0\ToDo.Models.pdb
+D:\Repos\Repos22\MVC\ToDo\ToDo\bin\Debug\net7.0\ToDo.Utility.dll
+D:\Repos\Repos22\MVC\ToDo\ToDo\bin\Debug\net7.0\ToDo.Utility.pdb
