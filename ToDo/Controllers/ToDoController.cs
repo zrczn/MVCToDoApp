@@ -62,6 +62,8 @@ namespace ToDo.Controllers
 
             _db.toDoModels.Add(model);
             _db.SaveChanges();
+            TempData["success"] = "new record has been added";
+
             return RedirectToAction("Index");
         }
 
@@ -92,8 +94,12 @@ namespace ToDo.Controllers
                 return View(model);
             }
 
-            _db.toDoModels.Update(model);
-            _db.SaveChanges();
+            if(model != _db.toDoModels.Where(x => x.Id == model.Id))
+            {
+                _db.toDoModels.Update(model);
+                _db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 
