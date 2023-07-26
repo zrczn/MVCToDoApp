@@ -10,8 +10,9 @@ namespace ToDo.DataAccess.Repository.IRepository
     public interface IToDoRepository : IRepository<ToDoModel>
     {
         void Update(ToDoModel obj);
-        void Save(ToDoModel obj);
         void CleanExpiredDateData();
+        IEnumerable<ToDoModel> GetTodayToDos(int increaseDate = 0);
+        IEnumerable<(string, IEnumerable<ToDoModel>)> GetSevenDayToDos();
 
     }
 }

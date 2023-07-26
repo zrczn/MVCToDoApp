@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ToDo.ApplicationDBContext;
+using ToDo.DataAccess.Repository;
+using ToDo.DataAccess.Repository.IRepository;
 
 namespace ToDo
 {
@@ -14,6 +17,7 @@ namespace ToDo
             builder.Services.AddDbContext<AppDbCon>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DbConn")
                 ));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             var app = builder.Build();
 
@@ -34,7 +38,7 @@ namespace ToDo
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=ToDo}/{action=Index}/{id?}");
+                pattern: "{area=User}/{controller=ToDo}/{action=Index}/{id?}");
 
             app.Run();
         }
