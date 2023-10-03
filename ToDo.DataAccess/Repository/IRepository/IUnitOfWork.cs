@@ -9,6 +9,9 @@ namespace ToDo.DataAccess.Repository.IRepository
     public interface IUnitOfWork 
     {
         IToDoRepository ToDoRepository { get; }
+        IAudioRepository audioRepository { get; }
+        IPhotoRepository photoRepository { get; }
+        IApplicationUser applicationUser { get; }
         void Save();
     }
 }

@@ -1,35 +1,54 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Xml.Linq;
 using ToDo.ApplicationDBContext;
 using ToDo.DataAccess.Repository.IRepository;
+using ToDo.Filters;
 using ToDo.Models;
 using ToDo.Utility;
-using ToDoScheduler = ToDo.Utility.TaskScheduler;
 
 namespace ToDo.Areas.User.Controllers
 {
     [Area("User")]
-    public class ToDoController : Controller
+    public class ToDoController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ToDoController(IUnitOfWork unit)
+        public ToDoController(IUnitOfWork unit, IWebHostEnvironment webHostEnvironment) : base()
         {
             _unitOfWork = unit;
+            _webHostEnvironment = webHostEnvironment;
         }
 
+
+        [ServiceFilter(typeof(UserIdAsyncFilter))]
         public IActionResult Index()
         {
             _unitOfWork.ToDoRepository.CleanExpiredDateData();
 
             IEnumerable<ToDoModel> getTodayToDos = _unitOfWork.ToDoRepository.GetTodayToDos();
 
+            if(HttpContext.Items.TryGetValue("CurrentUserId", out object value))
+            {
+                getTodayToDos = getTodayToDos.Where(x => x.OwnerId == (string)value);
+            }
+
             return View(getTodayToDos);
         }
 
+
+        [ServiceFilter(typeof(UserIdAsyncFilter))]
         public IActionResult SevenDaysSchedule()
         {
-            IEnumerable<(string, IEnumerable<ToDoModel>)> getSevenDaysToDos = _unitOfWork.ToDoRepository.GetSevenDayToDos();
+            IEnumerable<(string, IEnumerable<ToDoModel>)> getSevenDaysToDos = _unitOfWork.ToDoRepository.GetSevenDayToDos(
+                HttpContext.Items["CurrentUserId"].ToString());
 
             return View(getSevenDaysToDos);
         }
@@ -37,13 +56,15 @@ namespace ToDo.Areas.User.Controllers
 
         //Create
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return View(new ToDoModel());
         }
 
         [HttpPost]
-        public IActionResult Create(ToDoModel model)
+        [Authorize]
+        public IActionResult Create(ToDoModel model, IFormFile file)
         {
             if (!(model.RoutineOption == 0 ^ model.ShowAtSingleDay == new DateTime(1, 1, 1, 0, 0, 0)))
             {
@@ -57,56 +78,133 @@ namespace ToDo.Areas.User.Controllers
 
                 return View(model);
             }
+
+            ModelState.Remove(nameof(file));
+
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            _unitOfWork.ToDoRepository.Add(model);
-            _unitOfWork.Save();
+            if (ModelState.IsValid)
+            {
+                model.AudioId = 1;
 
-            TempData["success"] = "new record has been added";
+                //Image handling
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
 
-            return RedirectToAction("Index");
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var filePath = Path.Combine(wwwRootPath, @"Images\Product");
+
+                    using (var fileStream = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    PhotoModel newObj = new PhotoModel();
+
+                    newObj.Name = fileName;
+                    newObj.URL = @"\Images\Product\" + fileName;
+
+                    _unitOfWork.photoRepository.Add(newObj);
+
+                    model.Photo = newObj;
+                }
+                else
+                {
+                    model.PhotoId = 1;
+                }
+
+                string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                model.OwnedBy = _unitOfWork.applicationUser.Get(x => x.Id == currentUserId);
+                
+                _unitOfWork.ToDoRepository.Add(model);
+                _unitOfWork.Save();
+
+                TempData["success"] = "new record has been added";
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         //Edit
         [HttpGet]
+        [Authorize]
         public IActionResult Edit(int Id)
         {
-            var getRecord = _unitOfWork.ToDoRepository.Get(x => x.Id == Id);
+            var getRecord = _unitOfWork.ToDoRepository.Get(x => x.Id == Id, "Photo");
 
-            return View(getRecord);
+            if(getRecord != null)
+                return View(getRecord);
+
+            return NotFound();
         }
 
         [HttpPost]
-        public IActionResult Edit(ToDoModel model)
+        [Authorize]
+        public IActionResult Edit(ToDoModel model, IFormFile file)
         {
+
             if (!(model.RoutineOption == 0 ^ model.ShowAtSingleDay == new DateTime(1, 1, 1, 0, 0, 0)))
             {
                 ViewData["ShowAtError"] = "Please insert either Set as routine or Show once";
 
                 return View(model);
             }
-            if (model.ShowAtSingleDay < DateTime.Now)
+            if (model.ShowAtSingleDay < DateTime.Now && model.ShowAtSingleDay != new DateTime(1, 1, 1, 0, 0, 0))
             {
                 ViewData["ShowAtError"] = "Please enter future date";
             }
+
+            ModelState.Remove(nameof(file));
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            if (model != _unitOfWork.ToDoRepository.Get(x => x.Id == model.Id))
+            if (file != null)
             {
-                _unitOfWork.ToDoRepository.Update(model);
+                var getOldPhoto = _unitOfWork.photoRepository.Get(x => x.Id == model.PhotoId);
+
+                //Image handling
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(wwwRootPath, @"Images\Product");
+
+                using (var fileStream = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                getOldPhoto.Name = fileName;
+                getOldPhoto.URL = @"\Images\Product\" + fileName;
+
+                _unitOfWork.photoRepository.Update(getOldPhoto);
                 _unitOfWork.Save();
+
+                model.Photo = getOldPhoto;
+
             }
+
+            model.AudioId = 1;
+
+            _unitOfWork.ToDoRepository.Update(model);
+            _unitOfWork.Save();
+
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Completed(int Id)
         {
             var getRecord = _unitOfWork.ToDoRepository.Get(x => x.Id == Id);
@@ -129,6 +227,7 @@ namespace ToDo.Areas.User.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Remove(int Id)
         {
             var getRecord = _unitOfWork.ToDoRepository.Get(x => x.Id == Id);
@@ -144,9 +243,10 @@ namespace ToDo.Areas.User.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult ManageAll()
         {
-            IEnumerable<ToDoModel> getAllToDos = _unitOfWork.ToDoRepository.GetAll();
+            IEnumerable<ToDoModel> getAllToDos = _unitOfWork.ToDoRepository.GetAll("Photo");
 
             return View(getAllToDos);
         }

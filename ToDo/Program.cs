@@ -3,6 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using ToDo.ApplicationDBContext;
 using ToDo.DataAccess.Repository;
 using ToDo.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using ToDo.Utility;
+using ToDo.Areas.User.Controllers;
+using ToDo.Filters;
 
 namespace ToDo
 {
@@ -13,11 +18,19 @@ namespace ToDo
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<UserIdAsyncFilter>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbCon>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DbConn")
                 ));
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbCon>()
+                .AddDefaultTokenProviders();
+            builder.Services.AddRazorPages();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
+            builder.Services.AddScoped<BaseController>();
+            builder.Services.AddScoped<UserIdAsyncFilter>();
 
             var app = builder.Build();
 
@@ -34,7 +47,10 @@ namespace ToDo
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",

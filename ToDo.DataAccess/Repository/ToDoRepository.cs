@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -13,7 +15,7 @@ namespace ToDo.DataAccess.Repository
 {
     public class ToDoRepository : Repository<ToDoModel>, IToDoRepository
     {
-        private AppDbCon _db;
+        private readonly AppDbCon _db;
 
         public ToDoRepository(AppDbCon db) : base(db)
         {
@@ -38,6 +40,7 @@ namespace ToDo.DataAccess.Repository
         {
             _db.toDoModels.Update(obj);
         }
+
 
         private List<int> convertDateToRoutineNumber(DateTime DateOption)
         {
@@ -75,21 +78,26 @@ namespace ToDo.DataAccess.Repository
             DateTime date = DateTime.Today;
             date = date.AddDays(increaseDate);
 
-            IEnumerable<ToDoModel> getSingleDayData = _db.toDoModels.Where(x => x.ShowAtSingleDay == date);
+            IEnumerable<ToDoModel> getSingleDayData = _db.toDoModels
+                                                            .Include(x => x.Photo)
+                                                            .Where(x => x.ShowAtSingleDay == date);
 
-            IEnumerable<ToDoModel> getRoutineData = _db.toDoModels.Where(x => convertDateToRoutineNumber(date)
-                                                                        .Contains(x.RoutineOption)).AsEnumerable();
+            IEnumerable<ToDoModel> getRoutineData = _db.toDoModels
+                                                            .Include(x => x.Photo)
+                                                            .Where(x => convertDateToRoutineNumber(date)
+                                                            .Contains(x.RoutineOption)).AsEnumerable();
 
             return getRoutineData.Union(getSingleDayData).OrderBy(x => x.Priority);
         }
 
-        public IEnumerable<(string, IEnumerable<ToDoModel>)> GetSevenDayToDos()
+        public IEnumerable<(string, IEnumerable<ToDoModel>)> GetSevenDayToDos(string loggedinUserId)
         {
             List<(string, IEnumerable<ToDoModel>)> total = new List<(string, IEnumerable<ToDoModel>)>();
 
             for (int i = 1; i <= 7; i++)
             {
-                IEnumerable<ToDoModel> current = GetTodayToDos(i).OrderBy(x => x.Priority);
+                IEnumerable<ToDoModel> current = GetTodayToDos(i).Where(x => x.OwnerId == loggedinUserId)
+                                                                 .OrderBy(x => x.Priority);
 
                 if (i == 1)
                 {

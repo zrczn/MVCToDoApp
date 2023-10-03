@@ -6,13 +6,9 @@ namespace ToDo.Models
     public class PhotoModel
     {
         [Key]
-        public uint Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string URL { get; set; }
 
-        public ToDoModel ToDoModel { get; set; }
-
-        [ForeignKey("ToDoModel")]
-        public uint ToDoModelId { get; set; }
     }
 }

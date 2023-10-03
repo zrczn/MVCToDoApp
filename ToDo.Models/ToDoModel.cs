@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToDo.Models
 {
@@ -14,14 +17,30 @@ namespace ToDo.Models
         public string Contents { get; set; }
         [Range(1,3)]
         public int Priority { get; set; }
-        [FileExtensions(Extensions ="jpg,png", ErrorMessage ="Following extensions only support: jpg, png")]
-        public PhotoModel? Photo { get; set; }
-        [FileExtensions(Extensions ="mp3", ErrorMessage = "Following extensions only support: mp3")]
-        public AudioModel? Audio { get; set; }
-        public int RoutineOption { get; set; }
 
+
+        public int PhotoId { get; set; }
+        [ValidateNever]
+        [ForeignKey("PhotoId")]
+        public PhotoModel? Photo { get; set; }
+
+
+        public int AudioId { get; set; }
+        [ValidateNever]
+        [ForeignKey("AudioId")]
+        public AudioModel? Audio { get; set; }
+
+
+        public int RoutineOption { get; set; }
         public DateTime ShowAtSingleDay { get; set; }
         public bool IsItDone { get; set; }
+
+        [ValidateNever]
+        public string OwnerId { get; set; }
+        [ValidateNever]
+        [ForeignKey("OwnerId")]
+        public ApplicationUser OwnedBy { get; set; }
+
 
     }
 }

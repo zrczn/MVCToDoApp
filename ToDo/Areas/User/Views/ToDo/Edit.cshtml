@@ -1,6 +1,7 @@
 ﻿@model ToDoModel;
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="PhotoId" />
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -35,8 +36,8 @@
                         <div class="accordion-body">
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="formFile" class="form-label">Upload photo</label>
-                                    <input class="form-control" type="file" id="formFile">
+                                    <label for="formFile" class="form-label">Update photo</label>
+                                    <input class="form-control" type="file" id="formFile" name="file">
                                 </div>
                             </div>
                             <div class="col-12">
