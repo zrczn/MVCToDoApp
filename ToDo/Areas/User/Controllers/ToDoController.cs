@@ -33,24 +33,37 @@ namespace ToDo.Areas.User.Controllers
         {
             _unitOfWork.ToDoRepository.CleanExpiredDateData();
 
-            IEnumerable<ToDoModel> getTodayToDos = _unitOfWork.ToDoRepository.GetTodayToDos();
-
             if(HttpContext.Items.TryGetValue("CurrentUserId", out object value))
             {
-                getTodayToDos = getTodayToDos.Where(x => x.OwnerId == (string)value);
-            }
+                IEnumerable<ToDoModel> getTodayToDos = _unitOfWork.ToDoRepository.GetTodayToDos();
 
-            return View(getTodayToDos);
+                getTodayToDos = getTodayToDos.Where(x => x.OwnerId == (string)value);
+
+                return View(getTodayToDos);
+            }
+            else
+            {
+                IEnumerable<ToDoModel> getTodayToDos = _unitOfWork.ToDoRepository.GetTodayToDos();
+
+                getTodayToDos = getTodayToDos.Where(x => x.OwnerId == (string)value);
+
+                return View(getTodayToDos);
+            }
         }
 
 
         [ServiceFilter(typeof(UserIdAsyncFilter))]
         public IActionResult SevenDaysSchedule()
         {
-            IEnumerable<(string, IEnumerable<ToDoModel>)> getSevenDaysToDos = _unitOfWork.ToDoRepository.GetSevenDayToDos(
+            if(HttpContext.Items.TryGetValue("CurrentUserId", out object value))
+            {
+                IEnumerable<(string, IEnumerable<ToDoModel>)> getSevenDaysToDos = _unitOfWork.ToDoRepository.GetSevenDayToDos(
                 HttpContext.Items["CurrentUserId"].ToString());
 
-            return View(getSevenDaysToDos);
+                return View(getSevenDaysToDos);
+            }
+
+            return BadRequest();
         }
 
 
